@@ -1,8 +1,7 @@
-window.addEventListener("DOMContentLoaded", function (e) {
-    console.log("The page is loaded");
+window.addEventListener("orientationchange", function (e) {
+    let screen = window.screen;
+    let angle = screen.orientation.angle;
+    let type = screen.orientation.type;
 
-    let btn = document.querySelector("#click-me");
-    btn.addEventListener("click", function (e) {
-        console.log("The button was clicked.");
-    });
+    console.log(` angle: ${angle}, type: ${type}`);
 });
