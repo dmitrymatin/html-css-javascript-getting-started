@@ -6,6 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="site.css" type="text/css">
     <title>Bethany's Pie Shop</title>
+    <style>
+        @media only screen and (min-width: 768px) {
+            article {
+                width: 350px;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            padding: 10px;
+            border: solid 1px #999;
+            border-radius: 2px;
+            width: 100%;
+            /* box-sizing: border-box; */
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input[type="reset"] {
+            background: transparent;
+            border: 0;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            border: solid 1x #999;
+            border-radius: 3px;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,6 +60,16 @@
         <aside><img src="images/logo.png" alt="Bethany's Pie Shop"></aside>
         <article>
             <h1>Order</h1>
+
+            <div class="pie">
+                <img src="" alt="">
+                <div class="columns">
+                    <div class="title"></div>
+                    <div class="price"></div>
+                </div>
+                <p class="desc"></p>
+            </div>
+
             <form action="http://localhost:7071/api/post" method="POST">
                 <div class="input-group">
                     <div><label for="first-name">First name</label></div>
@@ -32,7 +80,7 @@
                     <div><label for="last-name">Last name</label></div>
                     <div><input type="text" name="last-name" id="last-name"></div>
                 </div>
-                
+
                 <div class="input-group">
                     <div><label for="address">Address</label></div>
                     <div><input type="text" name="address" id="address"></div>
@@ -122,5 +170,29 @@
         </nav>
     </footer>
 </body>
+<script>
+    window.addEventListener("DOMContentLoaded", function (e) {
+        const order = localStorage.getItem("order");
+
+        if (order) {
+            const pieOrder = JSON.parse(order);
+
+            const pie = document.querySelector(".pie");
+
+            const title = pie.querySelector(".title");
+            const price = pie.querySelector(".price");
+            const desc = pie.querySelector(".desc");
+
+            title.innerHTML = pieOrder.title;
+            price.innerHTML = pieOrder.price;
+            desc.innerHTML = pieOrder.desc;
+
+            const img = pie.querySelector("img");
+            img.setAttribute("src", `images/${pieOrder.id}.png`);
+            img.setAttribute("alt", pieOrder.title);
+            img.setAttribute("title", pieOrder.title);
+        }
+    });
+</script>
 
 </html>
